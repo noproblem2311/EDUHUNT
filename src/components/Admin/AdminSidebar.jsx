@@ -68,13 +68,13 @@ const AdminSidebar = ({ avatarurl, username }) => {
         onClick={() => {
           if (session && session.user) {
             signOut();
-            router.replace("http://localhost:3000/login");
+            router.replace("https://eduhunt-l7e1i8hw0-noproblem2311s-projects.vercel.app/login");
           } else {
             localStorage.removeItem("userEmail");
             localStorage.removeItem("userId");
             localStorage.removeItem("token");
             localStorage.removeItem("role");
-            router.replace("http://localhost:3000/login");
+            router.replace("https://eduhunt-l7e1i8hw0-noproblem2311s-projects.vercel.app/login");
           }
         }}
         className="p-5 my-1.5 flex items-center cursor-pointer rounded-xl bg-none border-none w-full hover:bg-[#b3b3b3]"

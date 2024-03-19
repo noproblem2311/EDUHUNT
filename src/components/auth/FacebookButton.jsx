@@ -5,7 +5,7 @@ function FacebookButton() {
     <>
       <button
         onClick={() =>
-          signIn("facebook", { callbackUrl: "http://localhost:3000/" })
+          signIn("facebook", { callbackUrl: "https://eduhunt-l7e1i8hw0-noproblem2311s-projects.vercel.app/" })
         }
         className="bg-white text-[#333] border border-solid border-[#333] w-full py-2 rounded-[40px] mb-4 flex items-center justify-center"
       >

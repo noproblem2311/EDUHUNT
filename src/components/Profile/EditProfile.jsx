@@ -63,11 +63,11 @@ function EditProfile() {
         if (!isupdateVIP) {
           alert("Profile updated successfully");
           if (role === "Admin") {
-            window.location.href = "http://localhost:3000/admin";
+            window.location.href = "https://eduhunt-l7e1i8hw0-noproblem2311s-projects.vercel.app/admin";
           }
         } else {
           if (window.confirm("Are you sure to pay VIP ?")) {
-            window.location.href = "http://localhost:3000/payment";
+            window.location.href = "https://eduhunt-l7e1i8hw0-noproblem2311s-projects.vercel.app/payment";
           }
         }
       })
