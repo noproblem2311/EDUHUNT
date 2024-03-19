@@ -33,8 +33,8 @@ export default function MentorModal(prop) {
       return;
     }
 
-    const url = "https://eduhunt.azurewebsites.net/api/QAs/Create";
-    let urlAnswer = "https://eduhunt.azurewebsites.net/api/QAs/Edit";
+    const url = "https://eduhuntbe20240320020607.azurewebsites.net//api/QAs/Create";
+    let urlAnswer = "https://eduhuntbe20240320020607.azurewebsites.net//api/QAs/Edit";
 
     let payload = {
       askerId: prop.askerID,

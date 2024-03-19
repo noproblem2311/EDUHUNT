@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://eduhunt.azurewebsites.net/api/RoadMaps";
+const API_URL = "https://eduhuntbe20240320020607.azurewebsites.net//api/RoadMaps";
 
 export const useRoadMap = () => {
   const getRoadMap = async () => {

@@ -3,8 +3,8 @@ import axios from "axios";
 
 const useMentor = () => {
 
-    let url = "https://eduhunt.azurewebsites.net/api/QAs/GetAllUserOrMentor/";
-    let url2 = "https://eduhunt.azurewebsites.net/api/QAs/Conversations/";
+    let url = "https://eduhuntbe20240320020607.azurewebsites.net//api/QAs/GetAllUserOrMentor/";
+    let url2 = "https://eduhuntbe20240320020607.azurewebsites.net//api/QAs/Conversations/";
     if (typeof window !== "undefined") {
         url += localStorage.getItem("userId");
         url2 +=  localStorage.getItem("userId");
@@ -32,7 +32,7 @@ const useMentor = () => {
     const getUserList = async () => {
         try {
           const response = await axios.get(
-            'https://eduhunt.azurewebsites.net/api/Profiles',
+            'https://eduhuntbe20240320020607.azurewebsites.net//api/Profiles',
             {
               headers: {
                 'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ const useMentor = () => {
     const getProfiles = async () => {
       try {
         const response = await axios.get(
-          'https://eduhunt.azurewebsites.net/api/Profiles',
+          'https://eduhuntbe20240320020607.azurewebsites.net//api/Profiles',
           {
             headers: {
               'Content-Type': 'application/json',

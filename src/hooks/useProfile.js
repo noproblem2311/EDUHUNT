@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://eduhunt.azurewebsites.net/api/Profiles"; // Adjust the API URL as needed
+const API_URL = "https://eduhuntbe20240320020607.azurewebsites.net//api/Profiles"; // Adjust the API URL as needed
 
 export const useProfile = () => {
   const getProfile = async (userId) => {
@@ -49,7 +49,7 @@ export const useProfile = () => {
       };
 
       const response = await axios.post(
-        `https://eduhunt.azurewebsites.net/api/Account/changePassword`,
+        `https://eduhuntbe20240320020607.azurewebsites.net//api/Account/changePassword`,
         passwordData
       );
 

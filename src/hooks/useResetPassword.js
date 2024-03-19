@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "https://eduhunt.azurewebsites.net/api";
+const API = "https://eduhuntbe20240320020607.azurewebsites.net//api";
 
 export const usePasswordReset = () => {
   const send = async (email) => {

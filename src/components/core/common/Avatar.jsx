@@ -25,7 +25,7 @@ const Avatars = () => {
     const fetchAvatarUrl = async () => {
       try {
         const response = await axios.get(
-          `https://eduhunt.azurewebsites.net/api/Profiles/${id}`
+          `https://eduhuntbe20240320020607.azurewebsites.net//api/Profiles/${id}`
         );
         setAvatarUrl(response.data.urlAvatar);
       } catch (error) {
