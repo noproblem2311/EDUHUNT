@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://eduhuntbe20240320020607.azurewebsites.net//api/Applications";
+const API_URL = "https://eduhuntbe20240320020607.azurewebsites.net/api/Applications";
 
 export const useApplication = () => {
   const getApplications = async () => {

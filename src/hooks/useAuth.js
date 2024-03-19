@@ -15,7 +15,7 @@ const useAuth = () => {
   }) => {
     try {
       const response = await axios.post(
-        "https://eduhuntbe20240320020607.azurewebsites.net//api/Account/register",
+        "https://eduhuntbe20240320020607.azurewebsites.net/api/Account/register",
         {
           name,
           email,
@@ -49,7 +49,7 @@ const useAuth = () => {
       }
 
       const response = await axios.post(
-        "https://eduhuntbe20240320020607.azurewebsites.net//api/Account/login",
+        "https://eduhuntbe20240320020607.azurewebsites.net/api/Account/login",
         {
           email,
           password,

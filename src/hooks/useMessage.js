@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_URL = "https://eduhuntbe20240320020607.azurewebsites.net//api"; // Điều chỉnh API URL tùy thích
+const API_URL = "https://eduhuntbe20240320020607.azurewebsites.net/api"; // Điều chỉnh API URL tùy thích
 
 export const useMessage = () => {
   const getHistoryMessages = async (senderId, receiverId) => {
