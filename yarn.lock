@@ -649,7 +649,7 @@
   dependencies:
     tslib "^2.1.0"
 
-"@fullcalendar/core@~6.1.11":
+"@fullcalendar/core@^6.1.11", "@fullcalendar/core@~6.1.11":
   version "6.1.11"
   resolved "https://registry.npmjs.org/@fullcalendar/core/-/core-6.1.11.tgz"
   integrity sha512-TjG7c8sUz+Vkui2FyCNJ+xqyu0nq653Ibe99A66LoW95oBo6tVhhKIaG1Wh0GVKymYiqAQN/OEdYTuj4ay27kA==
