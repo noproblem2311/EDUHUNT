@@ -91,9 +91,9 @@ const useAuth = () => {
       if (role === "Admin") {
         router.push("/admin");
       } else if (
-        profile.firstName == null ||
-        profile.lastName == null ||
-        profile.userName == null
+        profile.firstName == "" ||
+        profile.lastName == "" ||
+        profile.userName == ""
       ) {
         router.push("/profile");
       } else {

@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import axios from "axios";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const useAdmin = () => {
   const router = useRouter();
@@ -8,10 +8,10 @@ const useAdmin = () => {
   const getUserList = async () => {
     try {
       const response = await axios.get(
-        'https://eduhuntbe20240320020607.azurewebsites.net/api/Account/listuser',
+        "https://eduhuntbe20240320020607.azurewebsites.net/api/Account/listuser",
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
@@ -30,18 +30,17 @@ const useAdmin = () => {
         `https://eduhuntbe20240320020607.azurewebsites.net/api/Account/deleteuser/${id}`,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
-  
+
       return response.data;
     } catch (error) {
       console.error(error);
       throw error;
     }
   };
-  
 
   return { getUserList, deleteUser };
 };

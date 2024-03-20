@@ -3,8 +3,10 @@ import axios from "axios";
 import { Modal, Button, Input, Upload } from "antd";
 import { useRouter } from "next/navigation";
 import { mutate } from "swr";
+import Toasify from "../../components/core/common/Toasify";
 
 export default function MentorModal(prop) {
+  const [toasify, setToasify] = useState({ message: "", type: "" });
   const [isVisible, setIsVisible] = useState(false);
   const [question, setQuestion] = useState();
   const [attachedFile, setAttachedFile] = useState(null);
@@ -29,7 +31,10 @@ export default function MentorModal(prop) {
       );
     } catch (error) {
       console.error("Failed to upload the file.", error);
-      alert("Failed to upload the file. Please try again.");
+      setToasify({
+        message: "Failed to upload the file.",
+        type: "error",
+      });
       return;
     }
 
@@ -68,9 +73,16 @@ export default function MentorModal(prop) {
         body: JSON.stringify(payload2),
       };
 
-      await fetch(urlAnswer, options);
-
-      mutate(urlAnswer);
+      try {
+        await fetch(urlAnswer, options);
+        mutate(urlAnswer);
+      } catch (error) {
+        console.error("Error during fetch:", error);
+        setToasify({
+          message: "Answer updated successfully.",
+          type: "success",
+        });
+      }
     } else {
       options = {
         headers: {
@@ -82,16 +94,23 @@ export default function MentorModal(prop) {
 
       try {
         await fetch(url, options);
+        mutate(url);
       } catch (error) {
         console.error("Error during fetch:", error);
+        setToasify({
+          message: "Question submitted successfully.",
+          type: "success",
+        });
       }
-      mutate(url);
     }
     setIsVisible(false);
   };
 
   return (
     <div>
+      {toasify.message && (
+        <Toasify message={toasify.message} type={toasify.type} />
+      )}
       <button
         onClick={() => setIsVisible(true)}
         className="py-2 bg-blue-600 hover:bg-blue-700 text-white rounded pr-5 scale-150"

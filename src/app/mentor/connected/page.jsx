@@ -6,11 +6,15 @@ import MainLayout from "../../../components/core/layouts/MainLayout";
 import MentorLayout from "../../../components/core/layouts/MentorLayout";
 import useMentor from "../../../hooks/useMentor";
 import Modal from "../../../components/Mentor/Modal";
+import { useRouter } from "next/navigation";
+import { Button } from "antd";
 
 const Mentor = () => {
+  const router = useRouter();
   const [qa, setQa] = useState();
   const [mentor, setMentor] = useState();
   const { getQAList, getProfiles } = useMentor();
+  const mentorId = localStorage.getItem("userId");
 
   let role;
   role = localStorage.getItem("role");
@@ -81,6 +85,15 @@ const Mentor = () => {
   return (
     <MainLayout>
       <MentorLayout>
+        {role === "Mentor" && (
+          <Button
+            onClick={() => router.push(`/mentor/roadmap/${mentorId}`)}
+            className="font-bold mt-4 ml-[calc(50%-80px)] rounded-lg"
+          >
+            View My Road Map
+          </Button>
+        )}
+
         {qa?.map((item, key) => {
           const date = item.createdAt;
           let isAnswered = "Answering";

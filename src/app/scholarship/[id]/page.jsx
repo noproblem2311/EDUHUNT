@@ -6,11 +6,13 @@ import MainLayout from "../../../components/core/layouts/MainLayout";
 import { useParams } from "next/navigation";
 import { useApplication } from "../../../hooks/useApplication";
 import { useScholarship } from "../../../hooks/useScholarship";
+import Toasify from "../../../components/core/common/Toasify";
 
 const ScholarshipDetail = () => {
   const [scholarship, setScholarship] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [applicationReason, setApplicationReason] = useState("");
+  const [toasify, setToasify] = useState({ message: "", type: "" });
   const [attachedFile, setAttachedFile] = useState(null);
   const { id } = useParams();
   const { getApplication, postApplication, putApplication } = useApplication();
@@ -47,7 +49,10 @@ const ScholarshipDetail = () => {
       );
     } catch (error) {
       console.error("Failed to upload the file.", error);
-      alert("Failed to upload the file. Please try again.");
+      setToasify({
+        message: "Failed to upload the file.",
+        type: "error",
+      });
       return;
     }
 
@@ -63,11 +68,16 @@ const ScholarshipDetail = () => {
 
     try {
       await postApplication(applicationData);
-      alert("Application submitted successfully!");
+      setToasify({
+        message: "Application submitted successfully.",
+        type: "success",
+      });
       setIsModalVisible(false);
     } catch (error) {
-      console.error(error);
-      alert("Failed to submit the application. Please try again.");
+      setToasify({
+        message: "Failed to submit the application. Please try again.",
+        type: "error",
+      });
     }
   };
 
@@ -84,6 +94,9 @@ const ScholarshipDetail = () => {
   return (
     <MainLayout>
       <div className="p-6 bg-[#fff]] rounded-t shadow-md sm:p-8 md:p-12 px-10">
+        {toasify.message && (
+          <Toasify message={toasify.message} type={toasify.type} />
+        )}
         <h2 className="text-5xl font-bold mb-4">{scholarship.title}</h2>
         <ul className="my-7">
           <li className="mb-1">

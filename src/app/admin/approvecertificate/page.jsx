@@ -4,6 +4,7 @@ import { Button, Table, Popconfirm, message } from "antd";
 import { useCertificate } from "../../../hooks/useCertificate";
 import AdminLayout from "../../../components/core/layouts/AdminLayout";
 import { useRouter } from "next/navigation";
+import { Image } from "antd";
 
 const ApproveCertificatePage = () => {
   const { getCertificate, approveCertificate } = useCertificate();
@@ -47,11 +48,7 @@ const ApproveCertificatePage = () => {
       dataIndex: "contentURL",
       key: "contentURL",
       render: (text, record) => (
-        <img
-          src={record.contentURL}
-          alt="Certificate"
-          style={{ width: "50px", height: "50px" }}
-        />
+        <Image width={50} src={record.contentURL} alt="Certificate" />
       ),
     },
     {

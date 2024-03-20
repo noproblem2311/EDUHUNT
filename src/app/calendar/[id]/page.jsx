@@ -31,6 +31,7 @@ export default function Home() {
     end: "",
     allDay: false,
     id: 0,
+    //meet: "",
   });
   console.log(id);
   console.log(role);
@@ -59,12 +60,28 @@ export default function Home() {
         ) {
           const start = response.scholarshipProviderAvailableStartDate
             ? new Date(
-                response.scholarshipProviderAvailableStartDate
+                new Date(
+                  response.scholarshipProviderAvailableStartDate
+                ).getTime() -
+                  new Date(
+                    response.scholarshipProviderAvailableStartDate
+                  ).getTimezoneOffset() *
+                    60000
               ).toISOString()
-            : new Date(response.studentChooseDay).toISOString();
+            : new Date(
+                new Date(response.studentChooseDay).getTime() -
+                  new Date(response.studentChooseDay).getTimezoneOffset() *
+                    60000
+              ).toISOString();
           const end = response.scholarshipProviderAvailableEndDate
             ? new Date(
-                response.scholarshipProviderAvailableEndDate
+                new Date(
+                  response.scholarshipProviderAvailableEndDate
+                ).getTime() -
+                  new Date(
+                    response.scholarshipProviderAvailableEndDate
+                  ).getTimezoneOffset() *
+                    60000
               ).toISOString()
             : "";
 
@@ -111,6 +128,7 @@ export default function Home() {
       end: arg.end,
       allDay: arg.allDay,
       id: new Date().getTime(),
+      //meet: arg.meet,
     });
     setShowModal(true);
   }
@@ -123,6 +141,7 @@ export default function Home() {
       title: data.draggedEl.innerText,
       allDay: data.allDay,
       id: new Date().getTime(),
+      //meet: data.meet.toISOString(),
     };
     setAllEvents([...allEvents, event]);
   }
@@ -148,6 +167,7 @@ export default function Home() {
       end: "",
       allDay: false,
       id: 0,
+      //meet: "",
     });
     setShowDeleteModal(false);
     setIdToDelete(null);
@@ -168,7 +188,10 @@ export default function Home() {
         studentID: studentId,
         scholarshipID: scholarshipId,
         meetingURL: `/message/${id}/meet`,
-        studentChooseDay: newEvent.start.toISOString(),
+        studentChooseDay: new Date(
+          new Date(newEvent.start).getTime() -
+            new Date(newEvent.start).getTimezoneOffset() * 60000
+        ).toISOString(),
         status: status,
       });
     }
@@ -177,8 +200,14 @@ export default function Home() {
         id: id,
         studentID: studentId,
         scholarshipID: scholarshipId,
-        scholarshipProviderAvailableStartDate: newEvent.start.toISOString(),
-        scholarshipProviderAvailableEndDate: newEvent.end.toISOString(),
+        scholarshipProviderAvailableStartDate: new Date(
+          new Date(newEvent.start).getTime() -
+            new Date(newEvent.start).getTimezoneOffset() * 60000
+        ).toISOString(),
+        scholarshipProviderAvailableEndDate: new Date(
+          new Date(newEvent.end).getTime() -
+            new Date(newEvent.end).getTimezoneOffset() * 60000
+        ).toISOString(),
         status: status,
       });
     }

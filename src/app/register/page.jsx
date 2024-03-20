@@ -4,10 +4,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import schoolGirl from "../../../public/images/registerGirl.png";
 import useAuth from "../../hooks/useAuth";
+import Toasify from "../../components/core/common/Toasify";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordInputType, setPasswordInputType] = useState("password");
+  const [toasify, setToasify] = useState({ message: "", type: "" });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
@@ -32,13 +34,15 @@ export default function RegisterPage() {
         roleId: roleId,
       });
 
-      alert(response.message);
       if (response.flag) {
-        router.push("/login");
+        router.push(`/login?message=Please verify your email to login`);
       }
     } catch (error) {
       console.error(error);
-      alert("An error occurred while registering. Please try again.");
+      setToasify({
+        message: "You entered it wrong. Please try again.",
+        type: "error",
+      });
     }
   };
 
@@ -49,11 +53,14 @@ export default function RegisterPage() {
       {/* <div className="bg-[#BEE9F2] min-h-screen flex items-center justify-center">
         
       </div> */}
-
       <div
         className="flex justify-center items-center  w-[100%] h-[100vh] "
         style={{ backgroundColor: "#BEE9F2" }}
       >
+        {toasify.message && (
+          <Toasify message={toasify.message} type={toasify.type} />
+        )}
+
         <div className="h-[85vh] w-[80vw] flex">
           <div
             className="h-[100%] w-[46%] bg-no-repeat mr-[8%] rounded-3xl"
