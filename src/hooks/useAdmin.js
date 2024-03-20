@@ -8,7 +8,7 @@ const useAdmin = () => {
   const getUserList = async () => {
     try {
       const response = await axios.get(
-        "https://localhost:7292/api/Account/listuser",
+        "https://eduhuntbe20240320020607.azurewebsites.net/api/Account/listuser",
         {
           headers: {
             "Content-Type": "application/json",
@@ -27,7 +27,7 @@ const useAdmin = () => {
   const deleteUser = async (id) => {
     try {
       const response = await axios.delete(
-        `https://localhost:7292/api/Account/deleteuser/${id}`,
+        `https://eduhuntbe20240320020607.azurewebsites.net/api/Account/deleteuser/${id}`,
         {
           headers: {
             "Content-Type": "application/json",
