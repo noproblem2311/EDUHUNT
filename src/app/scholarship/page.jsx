@@ -12,6 +12,7 @@ const Scholarship = () => {
   const [scholarshipData, setScholarshipData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
   const [isVip, setIsVip] = useState(false);
+  const role = localStorage.getItem("role");
   const { getScholarship } = useScholarship();
   const { getProfile } = useProfile();
   const { Option } = Select;
@@ -78,7 +79,7 @@ const Scholarship = () => {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    if (!isVip) {
+    if (!isVip&&role=='User') {
       alert("Only VIP users can search.");
       return;
     }

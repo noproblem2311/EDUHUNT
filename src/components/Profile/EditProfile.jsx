@@ -10,6 +10,9 @@ import Toasify from "../../components/core/common/Toasify";
 function EditProfile() {
   const userId = localStorage.getItem("userId");
   const role = localStorage.getItem("role");
+
+
+  // check if user is logged in
   const { getProfile, updateProfile } = useProfile();
   const { postCertificate } = useCertificate();
   const [toasify, setToasify] = useState({ message: "", type: "" });
