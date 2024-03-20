@@ -92,6 +92,12 @@ const useAuth = () => {
         router.push("/admin");
       } else if (
         profile.firstName == "" ||
+        profile.firstName == null ||
+        profile.lastName == undefined ||
+        profile.lastName == null ||
+        profile.userName == null ||
+        profile.lastName == undefined ||
+        profile.userName == undefined ||
         profile.lastName == "" ||
         profile.userName == ""
       ) {
