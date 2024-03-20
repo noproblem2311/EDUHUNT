@@ -1,25 +1,34 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import GoogleButton from "../../components/auth/GoogleButton";
-import FacebookButton from "../../components/auth/FacebookButton";
 import useAuth from "../../hooks/useAuth";
 import schoolGirl from "../../../public/images/schoolGirl.png";
+import Toasify from "../../components/core/common/Toasify";
+import { useRouter } from "next/navigation";
+import queryString from "query-string";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [toasify, setToasify] = useState({ message: "", type: "" });
   const [passwordInputType, setPasswordInputType] = useState("password");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const router = useRouter();
   const { login } = useAuth();
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
       setEmail(storedEmail);
+    }
+    if (typeof window !== "undefined") {
+      const parsedQuery = queryString.parse(window.location.search);
+      const message = parsedQuery.message;
+      if (message) {
+        setToasify({ message: message, type: "info" });
+      }
     }
   }, []);
 
@@ -35,12 +44,13 @@ export default function LoginPage() {
       .then(() => {
         if (localStorage.getItem("userId") !== null) {
           console.log("Login success");
-        } else {
-          alert("Login failed");
         }
       })
       .catch((error) => {
-        alert(error.message);
+        setToasify({
+          message: error.message,
+          type: "error",
+        });
       });
   };
 
@@ -56,6 +66,9 @@ export default function LoginPage() {
         className="flex justify-center items-center  w-[100%] h-[100vh] "
         style={{ backgroundColor: "#BEE9F2" }}
       >
+        {toasify.message && (
+          <Toasify message={toasify.message} type={toasify.type} />
+        )}
         <div className="h-[85vh] w-[80vw] flex">
           <div
             className="h-[100%] w-[46%] bg-no-repeat mr-[8%] rounded-3xl"

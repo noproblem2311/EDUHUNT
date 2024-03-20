@@ -1,4 +1,5 @@
 "use client";
+//application.js
 import { useEffect } from "react";
 import ListApplication from "../../components/Application/ListApplication";
 import MainLayout from "../../components/core/layouts/MainLayout";

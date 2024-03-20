@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useProfile } from "../../hooks/useProfile";
+import Toasify from "../../components/core/common/Toasify";
 
 const ChangePassword = () => {
   const { changePassword } = useProfile();
+  const [toasify, setToasify] = useState({ message: "", type: "" });
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
@@ -11,15 +13,24 @@ const ChangePassword = () => {
     try {
       const response = await changePassword(password, newPassword);
       if (response.flag) {
-        alert("Password changed successfully");
+        setToasify({
+          message: "Password changed successfully",
+          type: "success",
+        });
       }
     } catch (error) {
-      alert("Password change failed");
+      setToasify({
+        message: "Password change failed",
+        type: "error",
+      });
     }
   };
 
   return (
     <div className="w-[50%] m-auto p-10">
+      {toasify.message && (
+        <Toasify message={toasify.message} type={toasify.type} />
+      )}
       <form onSubmit={handleSubmit} className="flex flex-col space-y-12">
         <label className="flex flex-col text-sm font-medium text-gray-700">
           Current Password:

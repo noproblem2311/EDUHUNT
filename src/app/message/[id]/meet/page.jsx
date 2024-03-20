@@ -2,9 +2,7 @@
 
 import * as React from "react";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
-import { Button } from "antd";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 function randomID(len) {
   let result = "";
@@ -68,7 +66,7 @@ export default function App() {
       <div
         className="myCallContainer"
         ref={myMeeting}
-        style={{ width: "100vw", height: "100vh" }}
+        style={{ height: "100vh", width: "100vw" }}
       ></div>
     </>
   );

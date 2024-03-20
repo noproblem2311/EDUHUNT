@@ -9,7 +9,7 @@ const useChat = () => {
 
   useEffect(() => {
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl("https://eduhuntbe20240320020607.azurewebsites.net/chatHub") // Adjust the URL based on your SignalR hub
+      .withUrl("https://localhost:7292/chatHub") // Adjust the URL based on your SignalR hub
       .build();
 
     setConnection(newConnection);

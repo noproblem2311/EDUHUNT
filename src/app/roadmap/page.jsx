@@ -9,10 +9,12 @@ import UploadImg from "../../../public/Vector.png";
 import { Image, Input, AutoComplete } from "antd";
 import { useLocation } from "../../hooks/useLocation";
 import debounce from "lodash.debounce";
+import Toasify from "../../components/core/common/Toasify";
 
 const Profile = () => {
   const { postRoadMaps } = useRoadMap();
   const { getProfile } = useProfile();
+  const [toasify, setToasify] = useState({ message: "", type: "" });
   const { getLocation, locationOptions } = useLocation();
   const [roadMapData, setRoadMapData] = useState({
     title: "",
@@ -32,8 +34,7 @@ const Profile = () => {
     } else {
       getProfile(userId).then((profile) => {
         if (!profile.isAllow) {
-          router.push("/");
-          alert("You are not allowed to post a roadmap.");
+          router.push("/?message=You are not allowed to post a roadmap");
         }
       });
     }
@@ -66,7 +67,10 @@ const Profile = () => {
       const userId = localStorage.getItem("userId");
       console.log([{ userId, ...roadMapData }]);
       await postRoadMaps([{ userId, ...roadMapData }]);
-      alert("Roadmap posted successfully");
+      setToasify({
+        message: "Please wait for admin to approve the roadmap",
+        type: "info",
+      });
       setRoadMapData({
         title: "",
         content: "",
@@ -75,14 +79,17 @@ const Profile = () => {
         contentURL: "",
       });
     } catch (error) {
-      alert("Error posting roadmap");
+      setToasify({
+        message: "Failed to post roadmap",
+        type: "error",
+      });
     }
   };
 
   return (
     <MainLayout>
       <div>
-        <h1 className="text-[60px] font-bold">Create Roadmap</h1>
+        <h1 className="text-[58px] font-bold">Create Roadmap</h1>
       </div>
       <div className="flex flex-row gap-[35px]">
         <div className="w-[450px] h-[450px] border-[2px] border-dashed shadow-sm rounded-[25px] flex flex-col gap-[10px] items-center justify-center">

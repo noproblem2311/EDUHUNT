@@ -1,8 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import axios from "axios";
 import { message } from "antd";
+import Toasify from "../../components/core/common/Toasify";
 
 const CloudinaryPost = ({ onUpload }) => {
+  const [toasify, setToasify] = useState({ message: "", type: "" });
   const role = localStorage.getItem("role");
 
   const handleUpload = useCallback(
@@ -15,7 +17,20 @@ const CloudinaryPost = ({ onUpload }) => {
             "https://api.cloudinary.com/v1_1/djnjql4tl/upload?upload_preset=tstdfsn5&api_key=579496954431158",
             formData
           )
-          .then((response) => response.data.secure_url);
+          .then((response) => {
+            setToasify({
+              message: "File uploaded successfully.",
+              type: "success",
+            });
+            return response.data.secure_url;
+          })
+          .catch((error) => {
+            console.error("Failed to upload the file.", error);
+            setToasify({
+              message: "Failed to upload the file.",
+              type: "error",
+            });
+          });
       });
 
       Promise.all(promises).then((urls) => {
@@ -24,7 +39,6 @@ const CloudinaryPost = ({ onUpload }) => {
         } else {
           onUpload(urls);
         }
-        message.success("Upload Successful!");
       });
     },
     [onUpload, role]
@@ -36,6 +50,9 @@ const CloudinaryPost = ({ onUpload }) => {
 
   return (
     <div>
+      {toasify.message && (
+        <Toasify message={toasify.message} type={toasify.type} />
+      )}
       <div className="max-w-md w-full space-y-8 mx-auto mt-8 p-4">
         <div>
           <div className="relative mt-2">

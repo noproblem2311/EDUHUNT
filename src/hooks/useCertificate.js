@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://eduhuntbe20240320020607.azurewebsites.net/api/Certificates";
+const API_URL = "https://localhost:7292/api/Certificates";
 
 export const useCertificate = () => {
   const getCertificate = async () => {

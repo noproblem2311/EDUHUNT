@@ -15,7 +15,7 @@ const useAuth = () => {
   }) => {
     try {
       const response = await axios.post(
-        "https://eduhuntbe20240320020607.azurewebsites.net/api/Account/register",
+        "https://localhost:7292/api/Account/register",
         {
           name,
           email,
@@ -49,7 +49,7 @@ const useAuth = () => {
       }
 
       const response = await axios.post(
-        "https://eduhuntbe20240320020607.azurewebsites.net/api/Account/login",
+        "https://localhost:7292/api/Account/login",
         {
           email,
           password,
@@ -91,9 +91,9 @@ const useAuth = () => {
       if (role === "Admin") {
         router.push("/admin");
       } else if (
-        profile.firstName == null ||
-        profile.lastName == null ||
-        profile.userName == null
+        profile.firstName == "" ||
+        profile.lastName == "" ||
+        profile.userName == ""
       ) {
         router.push("/profile");
       } else {

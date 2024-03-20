@@ -6,8 +6,12 @@ import AdminSearch from "../../components/Admin/AdminSearch";
 import Image from "next/image";
 import AdminPagination from "../../components/Admin/AdminPagination";
 import { useRouter } from "next/navigation";
+import { message } from "antd";
+import { Modal } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 export default function AdminTestPage() {
+  const { confirm } = Modal;
   const { getUserList, deleteUser } = useAdmin();
   const [userList, setUserList] = useState([]);
   const [userSearch, setUserSearch] = useState("");
@@ -30,13 +34,29 @@ export default function AdminTestPage() {
     fetchUserList();
   }, []);
 
+  function showDeleteConfirm(userId) {
+    confirm({
+      title: "Are you sure you want to delete this user?",
+      icon: <ExclamationCircleOutlined />,
+      content: "This action cannot be undone.",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        handleDeleteUser(userId);
+      },
+    });
+  }
+
   const handleDeleteUser = async (userId) => {
     try {
       await deleteUser(userId);
       // Refresh user list after deletion
       const updatedUserList = await getUserList();
       setUserList(updatedUserList);
+      message.success("User deleted successfully");
     } catch (error) {
+      message.error("Error deleting user");
       console.error("Error deleting user:", error);
     }
   };
@@ -93,15 +113,7 @@ export default function AdminTestPage() {
                   <td className="p-2.5 ">
                     <button
                       className="py-1.5 px-2.5 rounded-lg bg-[#d12b55] text-[#fff] cursor-pointer"
-                      onClick={() => {
-                        if (
-                          window.confirm(
-                            "Are you sure you want to delete this user?"
-                          )
-                        ) {
-                          handleDeleteUser(user.id);
-                        }
-                      }}
+                      onClick={() => showDeleteConfirm(user.id)}
                     >
                       Delete
                     </button>

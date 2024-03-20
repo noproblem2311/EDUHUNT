@@ -9,11 +9,13 @@ import UploadImg from "../../../public/Vector.png";
 import { Image, Input, AutoComplete } from "antd";
 import debounce from "lodash.debounce";
 import { useLocation } from "../../hooks/useLocation";
+import Toasify from "../../components/core/common/Toasify";
 
 const Profile = () => {
   const { postScholarship } = useScholarship();
   const { getProfile } = useProfile();
   const { getLocation, locationOptions } = useLocation();
+  const [toasify, setToasify] = useState({ message: "", type: "" });
   const [scholarshipData, setScholarshipData] = useState({
     budget: "",
     title: "",
@@ -35,8 +37,7 @@ const Profile = () => {
     } else {
       getProfile(userId).then((profile) => {
         if (!profile.isAllow) {
-          router.push("/");
-          alert("You are not allowed to post a scholarship.");
+          router.push("/?message=You are not allowed to post a scholarship");
         }
       });
     }
@@ -65,7 +66,10 @@ const Profile = () => {
     try {
       console.log(scholarshipData);
       await postScholarship(scholarshipData);
-      alert("Scholarship posted successfully");
+      setToasify({
+        message: "Please wait for admin to approve the scholarship",
+        type: "info",
+      });
       setScholarshipData({
         budget: "",
         title: "",
@@ -77,7 +81,10 @@ const Profile = () => {
         imageUrl: "",
       });
     } catch (error) {
-      alert("Error posting scholarship");
+      setToasify({
+        message: "Failed to post scholarship",
+        type: "error",
+      });
     }
   };
 
@@ -85,6 +92,9 @@ const Profile = () => {
 
   return (
     <MainLayout>
+      {toasify.message && (
+        <Toasify message={toasify.message} type={toasify.type} />
+      )}
       <div>
         <h1 className="text-[60px] font-bold ml-[62px]">Create Post</h1>
       </div>

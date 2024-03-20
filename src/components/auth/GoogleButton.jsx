@@ -8,7 +8,7 @@ function GoogleButton() {
   const router = useRouter();
 
   if (session && session.user) {
-    router.replace("/")
+    router.replace("/");
     return null;
   }
 
@@ -45,7 +45,7 @@ function GoogleButton() {
               fill="#EB4335"
             />
           </svg>
-        </span> 
+        </span>
         Continue with Google
       </button>
     </div>

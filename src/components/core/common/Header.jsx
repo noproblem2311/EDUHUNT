@@ -218,23 +218,6 @@ const NavBar = () => {
     const userRole = localStorage.getItem("role");
     setRole(userRole);
   }, []);
-  const HighlightKey = () => {
-    if (pathName === "/") {
-      return 0;
-    } else if (pathName.includes("/scholarship")) {
-      return 1;
-    } else if (pathName?.includes("/mentor")) {
-      return 4;
-    } else if (
-      pathName.includes("/roadmap") ||
-      pathName.includes("/application") ||
-      pathName.includes("/post")
-    ) {
-      return 3;
-    } else if (pathName?.includes("message")) {
-      return 2;
-    } else return 0;
-  };
 
   return (
     <nav className="max-h-28 flex items-center justify-between flex-wrap p-6 z-10">
@@ -247,7 +230,7 @@ const NavBar = () => {
         <div className="lg:flex-grow w-[100%]">
           <div className="flex items-center justify-center">
             {items.map((item, index) => {
-              if (HighlightKey() == item.key) {
+              if ((item.label.props.href) == (pathName)) {
                 return (
                   <React.Fragment key={index}>
                     {item.labelhighlight}

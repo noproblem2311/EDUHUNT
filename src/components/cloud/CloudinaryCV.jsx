@@ -1,8 +1,10 @@
 import React, { useCallback, useState } from "react";
 import axios from "axios";
+import Toasify from "../../components/core/common/Toasify";
 
 const CloudinaryCV = ({ onUpload }) => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [toasify, setToasify] = useState({ message: "", type: "" });
 
   const handleFileUpload = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -26,12 +28,26 @@ const CloudinaryCV = ({ onUpload }) => {
           const cvUrl = response.data.secure_url;
           onUpload(cvUrl);
           setSelectedFile(null);
+          setToasify({
+            message: "File uploaded successfully.",
+            type: "success",
+          });
+        })
+        .catch((error) => {
+          console.error("Failed to upload the file.", error);
+          setToasify({
+            message: "Failed to upload the file.",
+            type: "error",
+          });
         });
     }
   }, [onUpload, selectedFile]);
 
   return (
     <div>
+      {toasify.message && (
+        <Toasify message={toasify.message} type={toasify.type} />
+      )}
       <div className="max-w-md w-full space-y-8 mx-auto mt-8 p-4">
         <div className="bg-white p-4 rounded shadow">
           <label className="block text-gray-700 text-sm font-bold">

@@ -21,10 +21,22 @@ const Scholarship = () => {
   const [searchParams, setSearchParams] = useState({
     schoolname: "",
     budget: "",
+    location: "",
   });
 
   const handleCountryChange = (value) => {
     getCities(value);
+    setSearchParams({
+      ...searchParams,
+      location: `${value}, ${searchParams.location.split(", ")[1] || ""}`,
+    });
+  };
+
+  const handleCityChange = (value) => {
+    setSearchParams({
+      ...searchParams,
+      location: `${searchParams.location.split(", ")[0] || ""}, ${value}`,
+    });
   };
 
   const handleInputChange = (event) => {
@@ -71,15 +83,15 @@ const Scholarship = () => {
       return;
     }
 
-    if (!searchParams.schoolname && !searchParams.budget) {
-      setScholarshipData(originalData);
-      return;
-    }
+    const locationSearch = searchParams.location
+      .trim()
+      .toLowerCase()
+      .replace(/,+$/, "");
 
-    console.log(scholarshipData);
     const filteredData = originalData.filter((scholarship) => {
       let matchSchoolName = true;
       let matchBudget = true;
+      let matchLocation = true;
 
       if (searchParams.schoolname && scholarship.schoolName) {
         matchSchoolName = scholarship.schoolName
@@ -92,8 +104,13 @@ const Scholarship = () => {
         matchBudget = budget <= Number(searchParams.budget);
       }
 
-      console.log(scholarship.schoolName);
-      return matchSchoolName && matchBudget;
+      if (locationSearch && scholarship.location) {
+        matchLocation = scholarship.location
+          .toLowerCase()
+          .includes(locationSearch);
+      }
+
+      return matchSchoolName && matchBudget && matchLocation;
     });
 
     console.log(searchParams);
@@ -146,6 +163,7 @@ const Scholarship = () => {
                   name="city"
                   className="w-full h-[41px] border border-[black] rounded-lg "
                   defaultValue="Select a city"
+                  onChange={handleCityChange}
                   showSearch
                   filterOption={filterOption}
                 >
