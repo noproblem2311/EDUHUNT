@@ -8,7 +8,7 @@ import { send } from "process";
 import useAuth from "../../../hooks/useAuth";
 
 
-export default function chooseRole() {
+export default function ChooseRole() {
     const { data: session } = useSession();
     const [ role, setRole ] = useState(1);
     const [ list, setList ] = useState([]);
